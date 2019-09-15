@@ -37,6 +37,18 @@ contract BaseTaini3 =
 const contractAddress ='ct_SEqVf4RvHbc4m9qL82c97XsJa1nK6qJ757YRzz6YTxwMUpL5D';
 
 const main = async() => {
+
+	const aeClient = await Ae.Aepp()
+	const height = await aeClient.height()
+
+	const contract = await aeClient.getContractInstance(contractSource,{contractAddress:contractAddress})
+
+	await contract.methods.setTaina('burgas','lek',{amount : 500000000000000000})
+
+	const taina = await contract.methods.getTaina('burgas')
+	console.log(taina)
+	document.getElementById('taina').innerHTML = taina.decodedResult;
+
 	// // Promise like style
 	// Ae.Aepp()
 	// .then(aeClient => { // resolved aeClient initialization
@@ -48,25 +60,30 @@ const main = async() => {
 	// .catch(e => console.error(e)) // catch error of AEPP init
 
 	// Async/Await style
-	try {
+	// try {
 
-		const aeClient = await Ae.Aepp().catch(err => { 
-			/* fake sdk (error goes inside err object, but does not stop execution) */ 
-		})
-		const height = await aeClient.height()
+	// 	const aeClient = await Ae.Aepp().catch(err => { 
+	// 		 fake sdk (error goes inside err object, but does not stop execution)  
+	// 	})
+	// 	const height = await aeClient.height()
 
-	} catch (err) {
-		// the error can be ae init error or height promise error
-	}
+	// } catch (err) {
+	// 	// the error can be ae init error or height promise error
+	// }
 
-	const contract = await aeClient.getContractInstance(contractSource,{contractAddress:contractAddress})
-		const taina = await contract.methods.getTaina('burgas')
-		console.log(taina)
+	// const aeClient = await Ae.Aepp().catch(err => { 
+	// 	 fake sdk (error goes inside err object, but does not stop execution)  
+	// })
+
 }
 
 main();
 
 </script>
+
+<div id="taina">
+	
+</div>
 
 </body>
 </html>
