@@ -1,4 +1,69 @@
+<!DOCTYPE html>
 <html>
-<head></head>
-<body>some body</body>
+<head>
+<title>aepp</title>
+
+</head>
+<body>
+
+<div>
+</div>
+
+<script
+	src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
+<!-- include latest SDK version -->
+<script src="https://unpkg.com/@aeternity/aepp-sdk/dist/aepp-sdk.browser-script.js"></script>
+
+<script type="text/javascript">
+
+
+const contractSource = `
+contract BaseTaini3 =
+
+	record state = { taini : map(string, string)}
+
+	entrypoint init() = {
+		taini = {} } 
+
+	entrypoint getTaina(inputKey : string) : string = state.taini[inputKey]
+
+	stateful entrypoint setTaina (inputKey : string, inputTaina : string) : string = 
+		require(Call.value == 500000000000000000, "wrong amount bro!") // 0.5 ae
+		put(state{ taini[inputKey] = inputTaina })
+		inputKey
+`;
+const contractAddress ='ct_SEqVf4RvHbc4m9qL82c97XsJa1nK6qJ757YRzz6YTxwMUpL5D';
+
+const main = async() => {
+	// // Promise like style
+	// Ae.Aepp()
+	// .then(aeClient => { // resolved aeClient initialization
+	// 	aeClient
+	// 	.height()
+	// 	.then(height => console.log(height)) // resolved height
+	// 	.catch(err => console.log(err)) // catch the height request 
+	// })
+	// .catch(e => console.error(e)) // catch error of AEPP init
+
+	// Async/Await style
+	try {
+		const aeClient = await Ae.Aepp().catch(err => { /* fake sdk (error goes inside err object, but does not stop execution) */ })
+		const height = await aeClient.height()
+	} catch (err) {
+		// the error can be ae init error or height promise error
+	}
+
+
+	const contract = await client.getContractInstance(contractSource,{contractAddress:contractAddress})
+		const taina = await contract.methods.getTaina('burgas')
+		console.log(taina)
+}
+
+main();
+
+</script>
+
+</body>
 </html>
