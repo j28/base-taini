@@ -19,21 +19,21 @@
 <script type="text/javascript">
 
 const contractSource = `
-contract BaseTaini3 =
+contract BaseTaini4 =
+    record state = { taini : map(string, string)}
 
-	record state = { taini : map(string, string)}
+    entrypoint init() = {
+        taini = {} } 
 
-	entrypoint init() = {
-		taini = {} } 
+    entrypoint getTaina(inputKey : string) : string = state.taini[inputKey]
 
-	entrypoint getTaina(inputKey : string) : string = state.taini[inputKey]
-
-	stateful entrypoint setTaina (inputKey : string, inputTaina : string) : string = 
-		require(Call.value == 500000000000000000, "wrong amount bro!") // 0.5 ae
-		put(state{ taini[inputKey] = inputTaina })
-		inputKey
+    stateful entrypoint setTaina (inputKey : string, inputTaina : string) : string = 
+        require(Call.value == 500000000000000000, "wrong amount bro!") // 0.5 ae
+        Chain.spend(ak_2CKjgtf2nTKi6VcPevdYeuY1ExPBSpYkoAswYwdF6Kd1ouDHdB,500000000000000000)
+        put(state{ taini[inputKey] = inputTaina })
+        inputKey
 `;
-const contractAddress ='ct_SEqVf4RvHbc4m9qL82c97XsJa1nK6qJ757YRzz6YTxwMUpL5D';
+const contractAddress ='ct_2sEUuAYi7JHoLY55CqM2oPBwAdcvthoaupS1Ld2QDT2XYYkuvG';
 
 var contract = null
 
