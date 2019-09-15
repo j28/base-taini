@@ -1,2 +1,2 @@
 # base-taini
-haaeckathon repo
+haeckathon repo
