@@ -49,12 +49,15 @@ const main = async() => {
 
 	// Async/Await style
 	try {
-		const aeClient = await Ae.Aepp().catch(err => { /* fake sdk (error goes inside err object, but does not stop execution) */ })
+
+		const aeClient = await Ae.Aepp().catch(err => { 
+			/* fake sdk (error goes inside err object, but does not stop execution) */ 
+		})
 		const height = await aeClient.height()
+
 	} catch (err) {
 		// the error can be ae init error or height promise error
 	}
-
 
 	const contract = await aeClient.getContractInstance(contractSource,{contractAddress:contractAddress})
 		const taina = await contract.methods.getTaina('burgas')
