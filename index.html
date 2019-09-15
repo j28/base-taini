@@ -18,7 +18,6 @@
 
 <script type="text/javascript">
 
-
 const contractSource = `
 contract BaseTaini3 =
 
@@ -44,8 +43,6 @@ const main = async() => {
 	const height = await aeClient.height()
 
 	contract = await aeClient.getContractInstance(contractSource,{contractAddress:contractAddress})
-
-
 
 	// // Promise like style
 	// Ae.Aepp()
@@ -96,6 +93,8 @@ async function writeToBc(){
 
 Key: <input type="text" name="tainaKey" id="tainaKey"><br>
 Taina: <input type="text" name="tainaValue" id="tainaValue"><br>
+
 <button onclick="writeToBc()">write to blockchain!</button>
+
 </body>
 </html>
